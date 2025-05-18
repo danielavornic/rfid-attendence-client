@@ -2,8 +2,8 @@
 
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 
-import { SiteHeader } from './side-header';
 import { AppSidebar } from './sidebar';
+import { SiteHeader } from './site-header';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -11,7 +11,6 @@ interface LayoutProps {
   description?: string;
 }
 
-// todo: add sidebar etc
 function PrivateLayout({ children, title, description }: LayoutProps) {
   return (
     <>
@@ -21,7 +20,7 @@ function PrivateLayout({ children, title, description }: LayoutProps) {
       <SidebarProvider>
         <AppSidebar variant="inset" />
         <SidebarInset className="border-none !shadow-none">
-          <SiteHeader />
+          <SiteHeader title={title} />
           <div className="flex flex-1 flex-col">
             <div className="@container/main flex flex-1 flex-col gap-2">{children}</div>
           </div>
