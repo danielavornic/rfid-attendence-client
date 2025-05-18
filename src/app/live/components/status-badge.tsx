@@ -38,7 +38,7 @@ export function StatusBadge({ status }: StatusBadgeProps) {
 
   return (
     <Badge variant={variant} className="gap-1">
-      {Icon && <Icon className="h-3 w-3" />}
+      {/* {Icon && <Icon className="h-3 w-3" />} */}
       {label}
     </Badge>
   );

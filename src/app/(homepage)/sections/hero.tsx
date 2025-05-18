@@ -59,9 +59,10 @@ export function HeroSectionOne() {
         >
           <Button
             size="lg"
+            asChild
             className="w-60 transform rounded-lg text-base font-medium transition-all duration-300 hover:-translate-y-0.5"
           >
-            Get Started
+            <Link href="/live">Get Started</Link>
           </Button>
         </motion.div>
         <motion.div

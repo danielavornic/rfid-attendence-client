@@ -1,6 +1,7 @@
 'use client';
 
 import { BarChartIcon, LayoutDashboardIcon, ListIcon, School, UsersIcon } from 'lucide-react';
+import Link from 'next/link';
 import type * as React from 'react';
 
 import {
@@ -53,10 +54,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
-              <a href="https://utm.md" target="_blank">
+              <Link href="/">
                 <School className="h-5 w-5" />
-                <span className="text-base font-semibold">UTM</span>
-              </a>
+                <span className="text-base font-semibold">SAMS</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

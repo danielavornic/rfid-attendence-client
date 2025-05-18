@@ -1,5 +1,6 @@
 'use client';
 
+import { Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { Skeleton } from '@/components/ui/skeleton';
@@ -32,29 +33,36 @@ export default function LiveSessionPage() {
 
   return (
     <PrivateLayout title="Live Session">
-      <div className="container py-6">
+      <div className="container px-6 py-6">
         {loading ? (
-          <div className="space-y-6">
-            <Skeleton className="h-[100px] w-full" />
+          <div className="space-y-10">
+            <Skeleton className="h-[130px] w-full" />
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {Array.from({ length: 4 }).map((_, i) => (
-                <Skeleton key={i} className="h-[120px] w-full" />
+                <Skeleton key={i} className="h-[150px] w-full" />
               ))}
             </div>
-            <Skeleton className="h-[500px] w-full" />
+            <div className="space-y-4">
+              <Skeleton className="h-10 w-full max-w-[250px]" />
+              <Skeleton className="h-[450px] w-full rounded-md" />
+            </div>
           </div>
         ) : session ? (
-          <>
+          <div className="space-y-8">
             <SessionInfo session={session} />
-            <div className="mb-6">
-              <SessionStatsCards stats={session.stats} />
-            </div>
+            <SessionStatsCards stats={session.stats} />
             <AttendeesTable data={session.attendees} />
-          </>
+          </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-12">
-            <h2 className="text-2xl font-bold">No Active Session</h2>
-            <p className="text-muted-foreground">There are no active sessions at the moment.</p>
+          <div className="flex min-h-[60vh] flex-col items-center justify-center rounded-lg py-12">
+            <div className="flex flex-col items-center justify-center gap-2 text-center">
+              <Loader2 className="h-10 w-10 animate-spin text-muted-foreground" />
+              <h2 className="mt-4 text-2xl font-bold">No Active Session</h2>
+              <p className="max-w-md text-muted-foreground">
+                There are no active sessions at the moment. Please check back later or start a new
+                session.
+              </p>
+            </div>
           </div>
         )}
       </div>
