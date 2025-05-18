@@ -102,7 +102,7 @@ const LoginForm = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'
                 <div className="mt-6 text-center text-sm text-muted-foreground">
                   <span className="flex items-center justify-center gap-1.5">
                     <School className="h-4 w-4" />
-                    Faculty Attendance Management System
+                    Student Attendance Management System
                   </span>
                 </div>
               </form>

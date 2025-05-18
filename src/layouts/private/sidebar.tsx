@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  BarChartIcon,
-  FolderIcon,
-  LayoutDashboardIcon,
-  ListIcon,
-  School,
-  UsersIcon,
-} from 'lucide-react';
+import { BarChartIcon, LayoutDashboardIcon, ListIcon, School, UsersIcon } from 'lucide-react';
 import type * as React from 'react';
 
 import {
@@ -36,14 +29,9 @@ const data = {
       icon: LayoutDashboardIcon,
     },
     {
-      title: 'Courses',
+      title: 'Sessions',
       url: '#',
       icon: ListIcon,
-    },
-    {
-      title: 'Students',
-      url: '#',
-      icon: UsersIcon,
     },
     {
       title: 'Analytics',
@@ -51,9 +39,9 @@ const data = {
       icon: BarChartIcon,
     },
     {
-      title: 'Projects',
+      title: 'Students',
       url: '#',
-      icon: FolderIcon,
+      icon: UsersIcon,
     },
   ],
 };

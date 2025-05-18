@@ -1,6 +1,8 @@
+'use client';
+
 import './globals.css';
 
-import type { Metadata } from 'next';
+import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 import { Inter } from 'next/font/google';
 
 import { Toaster } from '@/components/ui/sonner';
@@ -9,10 +11,10 @@ import { cn } from '@/lib/utils';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'Professor Portal',
-  description: 'Professor Portal',
-};
+// export const metadata: Metadata = {
+//   title: 'Professor Portal',
+//   description: 'Professor Portal',
+// };
 
 export default function RootLayout({
   children,
@@ -24,6 +26,7 @@ export default function RootLayout({
       <body className={cn(inter.className)}>
         <ReduxProvider>{children}</ReduxProvider>
         <Toaster />
+        <ProgressBar height="4px" color="#3066ff" options={{ showSpinner: false }} />
       </body>
     </html>
   );
