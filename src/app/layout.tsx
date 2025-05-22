@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(inter.className)}>
         <ReduxProvider>{children}</ReduxProvider>
-        <Toaster />
+        <Toaster closeButton richColors />
         <ProgressBar height="4px" color="#3066ff" options={{ showSpinner: false }} />
       </body>
     </html>

@@ -11,7 +11,7 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { format } from 'date-fns';
+import { addHours, format } from 'date-fns';
 import { Check, ChevronDown, MoreHorizontal, Search } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -137,10 +137,11 @@ export function AttendeesTable({ data: initialData }: AttendeesTableProps) {
       header: 'Check-in Time',
       cell: ({ row }) => {
         const checkInTime = row.getValue('time') as string | undefined;
-        return checkInTime ? (
-          <span className="font-mono text-xs">{format(new Date(checkInTime), 'HH:mm:ss')}</span>
-        ) : (
-          <span className="text-muted-foreground">—</span>
+        if (!checkInTime) return <span className="text-muted-foreground">—</span>;
+
+        const threeHoursLater = addHours(new Date(checkInTime), 3);
+        return (
+          <span className="font-mono text-xs">{format(new Date(threeHoursLater), 'HH:mm:ss')}</span>
         );
       },
     },

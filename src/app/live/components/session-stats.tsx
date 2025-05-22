@@ -97,15 +97,6 @@ export function SessionStatsCards({ stats }: SessionStatsProps) {
         percentage={presentPercentage}
       />
       <StatCard
-        title="Absent"
-        value={stats.absent}
-        description="Students who haven't checked in"
-        icon={UserX}
-        iconColor="text-red-500"
-        iconBgColor="bg-red-100 dark:bg-red-950/50"
-        percentage={absentPercentage}
-      />
-      <StatCard
         title="Late"
         value={stats.late}
         description="Students who were late"
@@ -113,6 +104,15 @@ export function SessionStatsCards({ stats }: SessionStatsProps) {
         iconColor="text-yellow-500"
         iconBgColor="bg-yellow-100 dark:bg-yellow-950/50"
         percentage={latePercentage}
+      />
+      <StatCard
+        title="Absent"
+        value={stats.absent}
+        description="Students who haven't checked in"
+        icon={UserX}
+        iconColor="text-red-500"
+        iconBgColor="bg-red-100 dark:bg-red-950/50"
+        percentage={absentPercentage}
       />
     </div>
   );

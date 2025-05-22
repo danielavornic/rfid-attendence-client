@@ -1,9 +1,7 @@
-// export const baseQueryUrl =
-//   process.env.NEXT_PUBLIC_API_URL || 'https://jsonplaceholder.typicode.com';
-
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const baseQueryUrl = 'https://presence-checker.onrender.com/api';
+export const baseQueryUrl =
+  process.env.NEXT_PUBLIC_API_URL || 'https://presence-checker.onrender.com/api';
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: baseQueryUrl,

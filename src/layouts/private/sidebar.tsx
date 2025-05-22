@@ -19,9 +19,10 @@ import { NavUser } from './nav-user';
 
 const data = {
   user: {
-    name: 'Professor M.',
-    email: 'm.popescu@utm.md',
-    avatar: '/avatars/shadcn.jpg',
+    name: 'Andrei Bragarenco',
+    email: 'andrei.bragarenco@utm.md',
+    avatar:
+      'https://i1.rgstatic.net/ii/profile.image/904540865961984-1592670756865_Q512/Andrei-Bragarenco.jpg',
   },
   navMain: [
     {

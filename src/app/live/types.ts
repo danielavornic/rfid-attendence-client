@@ -22,7 +22,6 @@ export interface SessionStats {
   present: number;
   absent: number;
   late: number;
-  attendance_rate: number; // percentage
 }
 
 export interface Session {
