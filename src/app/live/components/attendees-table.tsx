@@ -36,6 +36,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
+import { useUpdateAttendanceStatusMutation } from '../queries';
 import { AttendanceStatus, Attendee, STATUS_OPTIONS } from '../types';
 import { StatusBadge } from './status-badge';
 
@@ -44,50 +45,51 @@ interface AttendeesTableProps {
 }
 
 export function AttendeesTable({ data: initialData }: AttendeesTableProps) {
-  const [data, setData] = useState<Attendee[]>(initialData);
+  // const [data, setData] = useState<Attendee[]>(initialData);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
 
-  const updateStudentStatus = (studentId: string, newStatus: AttendanceStatus) => {
-    setData((currentData) =>
-      currentData.map((student) =>
-        student.id === studentId
-          ? {
-              ...student,
-              status: newStatus,
-              checkInTime:
-                (newStatus === 'present' || newStatus === 'late') && !student.checkInTime
-                  ? new Date().toISOString()
-                  : student.checkInTime,
-            }
-          : student
-      )
-    );
+  const [updateAttendanceStatus, { isLoading }] = useUpdateAttendanceStatusMutation();
+
+  const updateStudentStatus = (attendanceId: number, newStatus: AttendanceStatus) => {
+    // setData((currentData) =>
+    //   currentData.map((student) =>
+    //     student.attendance_id === studentId
+    //       ? {
+    //           ...student,
+    //           status: newStatus,
+    //           time:
+    //             (newStatus === 'present' || newStatus === 'late') && !student.time
+    //               ? new Date().toISOString()
+    //               : student.time,
+    //         }
+    //       : student
+    // )
+    // );
+
+    updateAttendanceStatus({ id: attendanceId, status: newStatus });
 
     toast.success('Status updated');
   };
 
   const columns: ColumnDef<Attendee>[] = [
     {
-      accessorKey: 'studentId',
+      accessorKey: 'student.student_id',
       header: 'Student ID',
-      cell: ({ row }) => <div className="font-medium">{row.getValue('studentId')}</div>,
+      cell: ({ row }) => <div className="font-msedium">{row.original.student.student_id}</div>,
     },
     {
-      accessorKey: 'firstName',
-      header: 'First Name',
+      accessorKey: 'student.name',
+      header: 'Student Name',
+      cell: ({ row }) => <div>{row.original.student.name}</div>,
     },
     {
-      accessorKey: 'lastName',
-      header: 'Last Name',
-    },
-    {
-      accessorKey: 'groupCode',
+      accessorKey: 'student.group.code',
       header: 'Group',
       cell: ({ row }) => (
         <span className="rounded bg-secondary/30 px-2 py-1 text-xs font-medium">
-          {row.getValue('groupCode')}
+          {row.original.student.group.code}
         </span>
       ),
     },
@@ -113,7 +115,7 @@ export function AttendeesTable({ data: initialData }: AttendeesTableProps) {
                 {STATUS_OPTIONS.map((statusOption) => (
                   <DropdownMenuItem
                     key={statusOption}
-                    onClick={() => updateStudentStatus(row.original.id, statusOption)}
+                    onClick={() => updateStudentStatus(row.original.attendance_id, statusOption)}
                     className="gap-2"
                   >
                     <StatusBadge status={statusOption} />
@@ -131,10 +133,10 @@ export function AttendeesTable({ data: initialData }: AttendeesTableProps) {
       },
     },
     {
-      accessorKey: 'checkInTime',
+      accessorKey: 'time',
       header: 'Check-in Time',
       cell: ({ row }) => {
-        const checkInTime = row.getValue('checkInTime') as string | undefined;
+        const checkInTime = row.getValue('time') as string | undefined;
         return checkInTime ? (
           <span className="font-mono text-xs">{format(new Date(checkInTime), 'HH:mm:ss')}</span>
         ) : (
@@ -170,7 +172,7 @@ export function AttendeesTable({ data: initialData }: AttendeesTableProps) {
   ];
 
   const table = useReactTable({
-    data,
+    data: initialData,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),

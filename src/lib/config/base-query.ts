@@ -3,7 +3,7 @@
 
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const baseQueryUrl = '';
+export const baseQueryUrl = 'https://presence-checker.onrender.com/api';
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: baseQueryUrl,

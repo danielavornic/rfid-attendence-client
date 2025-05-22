@@ -1,40 +1,40 @@
 'use client';
 
 import { Loader2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
 
 import { Skeleton } from '@/components/ui/skeleton';
 import PrivateLayout from '@/layouts/private';
 
-import { fetchCurrentSession } from './api/mock-data';
 import { AttendeesTable } from './components/attendees-table';
 import { SessionInfo } from './components/session-info';
-import { SessionStatsCards } from './components/session-stats';
-import { Session } from './types';
+import { useGetSessionByIdQuery } from './queries';
 
 export default function LiveSessionPage() {
-  const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
+  // const { data: session, isLoading } = useGetCurrentSessionQuery();
+  const { data: session, isLoading: isLoading } = useGetSessionByIdQuery(6);
 
-  useEffect(() => {
-    const loadSession = async () => {
-      try {
-        const data = await fetchCurrentSession();
-        setSession(data);
-      } catch (error) {
-        console.error('Failed to fetch session data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // const [session, setSession] = useState<Session | null>(null);
+  // const [loading, setLoading] = useState(true);
 
-    loadSession();
-  }, []);
+  // useEffect(() => {
+  //   const loadSession = async () => {
+  //     try {
+  //       const data = await fetchCurrentSession();
+  //       setSession(data);
+  //     } catch (error) {
+  //       console.error('Failed to fetch session data:', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   loadSession();
+  // }, []);
 
   return (
     <PrivateLayout title="Live Session">
       <div className="container px-6 py-6">
-        {loading ? (
+        {isLoading ? (
           <div className="space-y-10">
             <Skeleton className="h-[130px] w-full" />
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -50,8 +50,8 @@ export default function LiveSessionPage() {
         ) : session ? (
           <div className="space-y-8">
             <SessionInfo session={session} />
-            <SessionStatsCards stats={session.stats} />
-            <AttendeesTable data={session.attendees} />
+            {/* <SessionStatsCards stats={session.stats} /> */}
+            <AttendeesTable data={session.attendances} />
           </div>
         ) : (
           <div className="flex min-h-[60vh] flex-col items-center justify-center rounded-lg py-12">

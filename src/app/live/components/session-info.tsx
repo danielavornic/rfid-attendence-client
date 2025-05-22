@@ -23,9 +23,9 @@ export function SessionInfo({ session }: SessionInfoProps) {
               <Badge className="bg-primary/15 text-primary hover:bg-primary/20">
                 <Radio className="mr-1 h-3 w-3" /> Live
               </Badge>
-              <Badge variant="outline-primary">{session.courseCode}</Badge>
+              <Badge variant="outline-primary">#{session.course.course_id}</Badge>
             </div>
-            <h1 className="text-2xl font-bold text-foreground">{session.name}</h1>
+            <h1 className="text-2xl font-bold text-foreground">{session.course.name}</h1>
           </div>
           <div className="mt-4 flex flex-wrap gap-4 md:mt-0">
             <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
@@ -35,12 +35,13 @@ export function SessionInfo({ session }: SessionInfoProps) {
             <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
               <Clock className="h-4 w-4 text-primary" />
               <span>
-                {session.startTime} - {session.endTime}
+                {format(new Date(session.start_time), 'HH:mm')} -{' '}
+                {format(new Date(session.end_time), 'HH:mm')}
               </span>
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
               <MapPin className="h-4 w-4 text-primary" />
-              <span>{session.location}</span>
+              <span>{session.room}</span>
             </div>
           </div>
         </div>
