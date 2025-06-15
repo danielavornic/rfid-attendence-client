@@ -43,6 +43,7 @@ export const useAttendeeColumns = (
       header: 'Status',
       cell: ({ row }) => {
         const status = row.getValue('status') as AttendanceStatus;
+        const options = STATUS_OPTIONS.filter((option) => option !== status);
         return (
           <div className="flex items-center gap-2">
             <DropdownMenu>
@@ -56,7 +57,7 @@ export const useAttendeeColumns = (
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-40">
                 <DropdownMenuLabel>Change Status</DropdownMenuLabel>
-                {STATUS_OPTIONS.map((statusOption) => (
+                {options.map((statusOption) => (
                   <DropdownMenuItem
                     key={statusOption}
                     onClick={() => updateStudentStatus(row.original.attendance_id, statusOption)}

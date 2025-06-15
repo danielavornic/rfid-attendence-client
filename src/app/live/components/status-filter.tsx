@@ -17,6 +17,8 @@ interface StatusFilterProps {
 }
 
 export function StatusFilter({ table }: StatusFilterProps) {
+  const statusFilter = table.getColumn('status')?.getFilterValue() as string[];
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -30,9 +32,9 @@ export function StatusFilter({ table }: StatusFilterProps) {
           className="h-9 gap-1"
         >
           Status
-          {(table.getColumn('status')?.getFilterValue() as string[])?.length > 0 && (
+          {statusFilter?.length > 0 && (
             <span className="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[11px] text-primary-foreground">
-              {(table.getColumn('status')?.getFilterValue() as string[])?.length}
+              {statusFilter?.length}
             </span>
           )}
           <ChevronDown className="h-4 w-4" />
