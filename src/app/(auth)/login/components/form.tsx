@@ -50,7 +50,7 @@ const LoginForm = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'
                         <User className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground" />
                         <FormControl>
                           <Input
-                            placeholder="professor@university.edu"
+                            placeholder="professor@isa.utm.md"
                             className="pl-10 transition-all focus-visible:border-primary/50 focus-visible:ring-primary/50"
                             {...field}
                           />
@@ -80,6 +80,7 @@ const LoginForm = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'
                         <FormControl>
                           <Input
                             type="password"
+                            placeholder="**********"
                             className="pl-10 transition-all focus-visible:border-primary/50 focus-visible:ring-primary/50"
                             {...field}
                           />

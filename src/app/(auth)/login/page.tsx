@@ -14,16 +14,6 @@ export default function Page() {
 
       <div className="w-full max-w-md">
         <LoginForm />
-
-        {process.env.NODE_ENV === 'development' && (
-          <div className="mt-6 rounded-md bg-slate-50 p-4 text-sm text-slate-600">
-            <p className="font-medium">Test Credentials (Mock API):</p>
-            <ul className="mt-2 list-disc pl-5">
-              <li>Email: professor@university.edu</li>
-              <li>Password: password123</li>
-            </ul>
-          </div>
-        )}
       </div>
     </div>
   );
