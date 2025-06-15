@@ -120,8 +120,10 @@ export function AttendeesTable({ data }: AttendeesTableProps) {
       header: 'Check-in Time',
       cell: ({ row }) => {
         const checkInTime = row.getValue('time') as string | undefined;
-        if (!checkInTime) return <span className="text-muted-foreground">—</span>;
-        console.log(checkInTime);
+        const status = row.getValue('status') as AttendanceStatus;
+        if (!checkInTime || status === 'absent')
+          return <span className="text-muted-foreground">—</span>;
+
         const threeHoursLater = addHours(new Date(checkInTime), 3);
         return (
           <span className="font-mono text-xs">{format(new Date(threeHoursLater), 'HH:mm:ss')}</span>
