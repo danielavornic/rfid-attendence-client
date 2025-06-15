@@ -28,15 +28,11 @@ export const useAttendanceWebSocket = () => {
       };
 
       ws.onmessage = (event) => {
-        console.log('Raw received message:', event.data);
-
         try {
           const jsonMatch = event.data.match(/\{.*\}/);
           if (jsonMatch) {
             const jsonData = jsonMatch[0];
             const data = JSON.parse(jsonData);
-            console.log('Parsed message:', data);
-
             if (data.type === 'attendance') {
               toast.success('Attendance updated');
               dispatch(liveSessionApi.util.invalidateTags(['SESSION', 'LIVE_SESSION']));

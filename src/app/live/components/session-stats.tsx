@@ -79,7 +79,7 @@ export function SessionStatsCards({ stats }: SessionStatsProps) {
   const latePercentage = (stats.late / stats.total) * 100;
 
   return (
-    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
       <StatCard
         title="Total Students"
         value={stats.total}
