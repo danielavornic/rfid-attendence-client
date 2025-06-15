@@ -36,5 +36,5 @@ export interface Session {
   room: string;
   status: string;
   attendances: Attendee[];
-  // stats: SessionStats;
+  attendance_stats: SessionStats;
 }

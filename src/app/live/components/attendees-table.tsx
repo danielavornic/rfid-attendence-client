@@ -44,32 +44,15 @@ interface AttendeesTableProps {
   data: Attendee[];
 }
 
-export function AttendeesTable({ data: initialData }: AttendeesTableProps) {
-  // const [data, setData] = useState<Attendee[]>(initialData);
+export function AttendeesTable({ data }: AttendeesTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
 
-  const [updateAttendanceStatus, { isLoading }] = useUpdateAttendanceStatusMutation();
+  const [updateAttendanceStatus] = useUpdateAttendanceStatusMutation();
 
   const updateStudentStatus = (attendanceId: number, newStatus: AttendanceStatus) => {
-    // setData((currentData) =>
-    //   currentData.map((student) =>
-    //     student.attendance_id === studentId
-    //       ? {
-    //           ...student,
-    //           status: newStatus,
-    //           time:
-    //             (newStatus === 'present' || newStatus === 'late') && !student.time
-    //               ? new Date().toISOString()
-    //               : student.time,
-    //         }
-    //       : student
-    // )
-    // );
-
     updateAttendanceStatus({ id: attendanceId, status: newStatus });
-
     toast.success('Status updated');
   };
 
@@ -138,7 +121,7 @@ export function AttendeesTable({ data: initialData }: AttendeesTableProps) {
       cell: ({ row }) => {
         const checkInTime = row.getValue('time') as string | undefined;
         if (!checkInTime) return <span className="text-muted-foreground">—</span>;
-
+        console.log(checkInTime);
         const threeHoursLater = addHours(new Date(checkInTime), 3);
         return (
           <span className="font-mono text-xs">{format(new Date(threeHoursLater), 'HH:mm:ss')}</span>
@@ -173,7 +156,7 @@ export function AttendeesTable({ data: initialData }: AttendeesTableProps) {
   ];
 
   const table = useReactTable({
-    data: initialData,
+    data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),

@@ -4,13 +4,11 @@ import { Attendee, Session, SessionStats } from './types';
 
 export const liveSessionApi = reduxAPI.injectEndpoints({
   endpoints: (builder) => ({
-    getCurrentSession: builder.query<Session[], void>({
-      query() {
-        return {
-          url: `/sessions/current/1`,
-          method: 'GET',
-        };
-      },
+    getCurrentSessions: builder.query<Session[], { profId: number }>({
+      query: ({ profId }) => ({
+        url: `/sessions/current/${profId}`,
+        method: 'GET',
+      }),
       providesTags: ['LIVE_SESSION'],
     }),
     getSessionById: builder.query<Session, number>({
@@ -40,7 +38,7 @@ export const liveSessionApi = reduxAPI.injectEndpoints({
 });
 
 export const {
-  useGetCurrentSessionQuery,
+  useGetCurrentSessionsQuery,
   useGetSessionByIdQuery,
   useUpdateAttendanceStatusMutation,
   useGetSessionStatsQuery,

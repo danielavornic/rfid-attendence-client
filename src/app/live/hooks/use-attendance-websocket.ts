@@ -6,14 +6,6 @@ import { useAppDispatch } from '@/lib/store';
 
 import { liveSessionApi } from '../queries';
 
-interface AttendanceMessage {
-  type: 'attendance';
-  student: string;
-  room: string;
-  status: string;
-  timestamp: string;
-}
-
 export const useAttendanceWebSocket = () => {
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectAttemptsRef = useRef(0);
@@ -21,7 +13,7 @@ export const useAttendanceWebSocket = () => {
 
   const dispatch = useAppDispatch();
 
-  const connect = () => {
+  const connect = useCallback(() => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
       return;
     }
@@ -47,9 +39,7 @@ export const useAttendanceWebSocket = () => {
 
             if (data.type === 'attendance') {
               toast.success('Attendance updated');
-              dispatch(
-                liveSessionApi.util.invalidateTags(['SESSION', 'LIVE_SESSION', 'SESSION_STATS'])
-              );
+              dispatch(liveSessionApi.util.invalidateTags(['SESSION', 'LIVE_SESSION']));
             }
           } else {
             console.log('Text message received:', event.data);
@@ -81,24 +71,7 @@ export const useAttendanceWebSocket = () => {
     } catch (error) {
       console.error('Error creating WebSocket connection:', error);
     }
-  };
-
-  const sendTestMessage = useCallback(() => {
-    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
-      console.error('WebSocket is not connected');
-      return;
-    }
-
-    const testMessage: AttendanceMessage = {
-      type: 'attendance',
-      student: 'Test Student',
-      room: '2000',
-      status: 'present',
-      timestamp: new Date().toISOString(),
-    };
-    wsRef.current.send(JSON.stringify(testMessage));
-    console.log('Test message sent:', testMessage);
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     connect();
@@ -113,7 +86,5 @@ export const useAttendanceWebSocket = () => {
         wsRef.current = null;
       }
     };
-  }, []);
-
-  return { sendTestMessage };
+  }, [connect]);
 };
